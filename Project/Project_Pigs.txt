@@ -1,0 +1,58 @@
+=====================================
+Project: Pigs (11/14/2018)
+=====================================
+
+Score: B+
+
+From the compiler:
+----------------------------------------
+cpigplayer.o: In function `CDie::CDie(int)':
+/home/sedwards/Grades/Fall2018/CS123/MonWedB/Project/avelazquez/cdie.cpp:6: multiple definition of `CDie::CDie(int)'
+cdie.o:/home/sedwards/Grades/Fall2018/CS123/MonWedB/Project/avelazquez/cdie.cpp:6: first defined here
+cpigplayer.o: In function `CDie::CDie(int)':
+/home/sedwards/Grades/Fall2018/CS123/MonWedB/Project/avelazquez/cdie.cpp:6: multiple definition of `CDie::CDie(int)'
+cdie.o:/home/sedwards/Grades/Fall2018/CS123/MonWedB/Project/avelazquez/cdie.cpp:6: first defined here
+cpigplayer.o: In function `CDie::Draw() const':
+/home/sedwards/Grades/Fall2018/CS123/MonWedB/Project/avelazquez/cdie.cpp:18: multiple definition of `CDie::Draw() const'
+cdie.o:/home/sedwards/Grades/Fall2018/CS123/MonWedB/Project/avelazquez/cdie.cpp:18: first defined here
+cpigplayer.o: In function `CDie::Toss()':
+/home/sedwards/Grades/Fall2018/CS123/MonWedB/Project/avelazquez/cdie.cpp:77: multiple definition of `CDie::Toss()'
+cdie.o:/home/sedwards/Grades/Fall2018/CS123/MonWedB/Project/avelazquez/cdie.cpp:77: first defined here
+cpigplayer.o: In function `CDie::GetVal() const':
+/home/sedwards/Grades/Fall2018/CS123/MonWedB/Project/avelazquez/cdie.cpp:89: multiple definition of `CDie::GetVal() const'
+cdie.o:/home/sedwards/Grades/Fall2018/CS123/MonWedB/Project/avelazquez/cdie.cpp:89: first defined here
+collect2: error: ld returned 1 exit status
+make: *** [a.out] Error 1
+----------------------------------------
+
+Hmm, it appears that you have multiple definitions of functions. This
+can occur if you inadvertently #include a .cpp file where you should
+only be #including .h files. Sure enough, in the file cpigplayer.cpp I
+found this statement:
+
+  #include "cdie.cpp"
+
+Whoops! That pulls in the C++ implementation code into the cpigplayer.cpp
+file, but you're already compiling and linking cdie.cpp into the project,
+so the linker sees the CDie functions twice, which causes the multiple
+definitions error message. You should only #include .h files, which should
+only contain code that doesn't allocate space in memory (such as functions).
+Once I removed the #include of cdie.cpp from the file cpigplayer.cpp, your
+code built to completion without errors.
+
+The user should be able to just press the 'Enter' key alone to
+continue rolling, it looks like you still need to figure that one out...
+
+Your formatting is okay overall, although you still have problems with
+ameeting the CSG rules, particularly with regards to whitespace.
+
+In your function implementations there isn't any internal
+documentation for your code. Something of this size and complexity
+really needs to be thoroughly documented wih proper function headers
+and embedded comments.
+
+Aside from the 'Enter' key not responding on input, the runtime
+behavior of your program is fine, it seems to be doing what it's
+supposed to be doing. Congratulations on getting this up and running!
+
+
