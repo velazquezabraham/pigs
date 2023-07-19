@@ -1,2 +1,2 @@
-# Codigo-de-c-mas-mas-repo
-Este repository contiene los proyectos escolares con el lenguague c mas mas. 
+# Pigs Rolling Dice Game
+Run the compiled Pigs file by running the command ./Pigs on the linux terminal. 
